@@ -1,0 +1,26 @@
+import React from 'react'
+import Link from 'next/link';
+import Image from 'next/image';
+
+export default function SingleProduct({ item }) {
+    return (
+
+        <div className="team-item position-relative overflow-hidden">
+            <Image className="img-fluid w-100" height={350} width={200} src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER}${item.pic[0]}`} style={{ height: 350 }} alt="" />
+            <div className="team-overlay">
+                <div className='d-flex'>
+                    <small className="mb-2">{item.brand}</small>
+                    <small className="mb-2 bg-success">{item.stockQuantity} Left in Stock</small>
+                </div>
+                <h6 className="lh-base text-light">{item.name}</h6>
+                <h5 className='text-light'><del>&#8377;{item.basePrice}</del> &#8377;{item.finalPrice} <sup>{item.discount}% Off</sup></h5>
+                <div className="d-flex justify-content-center">
+                    <Link className="btn btn-outline-light btn-sm-square border-2 p-2 w-100" href={`/product/${item.id}`}>
+                        <i className="text-light bi bi-cart-plus"></i>
+                        <span className='ms-2'>Add to Cart</span>
+                    </Link>
+                </div>
+            </div>
+        </div>
+    )
+}
