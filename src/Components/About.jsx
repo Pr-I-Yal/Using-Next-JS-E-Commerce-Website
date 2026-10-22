@@ -36,7 +36,7 @@ export default function About() {
                     <div className="row g-5">
                         <div className="col-lg-6">
                             <div className="row">
-                                <div className="col-6 wow fadeIn" style={{ height: 500 }} data-wow-delay="0.1s">
+                                <div className="col-6" style={{ height: 500 }}>
                                     <img className="img-fluid h-100" src="/Images/Banner7.jpg" alt="" />
                                 </div>
                                 <div className="col-6 wow fadeIn" data-wow-delay="0.3s">

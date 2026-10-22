@@ -1,28 +1,40 @@
 import ProductPage from '@/PageComponents/ProductPage'
 import React from 'react'
 
-export async function generateMetadata({ params, searchParams }, parent) {
-    let slug = (await params).slug
+export async function generateMetadata({ params }) {
+    let { slug } = await params;
 
-    let response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/product/${slug}`, {
+    let productResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/product/${slug}`, {
         method: "GET",
         headers: {
             "content-type": "application/json"
         }
     })
 
-    let product = await response.json()
+    if (!productResponse.ok) {
+        return {
+            title: "DashDeal - Product",
+            description: "Explore products at DashDeal"
+        };
+    }
 
-    response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/seoData`, {
+    let product = await productResponse.json()
+
+    let seoResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SERVER}/seoData`, {
         method: "GET",
         headers: {
             "content-type": "application/json"
         }
     })
+    let seoData = [];
 
-    response = await response.json()
-    
-    let data = response.find(x => x.url === "/product")
+    if (seoResponse.ok) {
+        seoData = await seoResponse.json();
+    }
+
+    // response = await seoResponse.json()
+
+    let data = seoData.find(x => x.url === "/product")
     let keywords = data.keywords.replaceAll("{{productName}}", product.name)
     keywords = keywords.replace("{{brand}}", data.brand)
     keywords = keywords.replace("{{category}}", data.maincategory + "/" + data.subcategory)
@@ -35,9 +47,5 @@ export async function generateMetadata({ params, searchParams }, parent) {
 }
 
 export default function page() {
-    return (
-        <div>
-            <ProductPage />
-        </div>
-    )
+    return <ProductPage />
 }

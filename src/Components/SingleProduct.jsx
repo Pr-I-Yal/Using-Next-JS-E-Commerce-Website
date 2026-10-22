@@ -6,7 +6,7 @@ export default function SingleProduct({ item }) {
     return (
 
         <div className="team-item position-relative overflow-hidden">
-            <Image className="img-fluid w-100" height={350} width={200} src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER}${item.pic[0]}`} style={{ height: 350 }} alt="" />
+            <Image className="img-fluid w-100" height={350} width={200} src={`${process.env.NEXT_PUBLIC_IMAGE_SERVER}${item.pic[0]}`} style={{ height: 350 }} alt={item.name || "Product"} />
             <div className="team-overlay">
                 <div className='d-flex'>
                     <small className="mb-2">{item.brand}</small>
@@ -17,7 +17,7 @@ export default function SingleProduct({ item }) {
                 <div className="d-flex justify-content-center">
                     <Link className="btn btn-outline-light btn-sm-square border-2 p-2 w-100" href={`/product/${item.id}`}>
                         <i className="text-light bi bi-cart-plus"></i>
-                        <span className='ms-2'>Add to Cart</span>
+                        <span className='ms-2'>View Details</span>
                     </Link>
                 </div>
             </div>

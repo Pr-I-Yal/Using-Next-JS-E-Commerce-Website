@@ -43,9 +43,7 @@ const sliderOptions = {
     },
     modules: [Autoplay],
     className: "mySwiper"
-
 }
-
 
 export default function ProductSlider({ title, data }) {
     return (
